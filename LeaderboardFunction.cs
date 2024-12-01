@@ -22,7 +22,7 @@ namespace AocSlackBot
         }
 
         [Function("LeaderboardFunction")]
-        public async Task RunAsync([TimerTrigger("0 0 9 * 12 *", RunOnStartup = false)] TimerInfo myTimer)
+        public async Task RunAsync([TimerTrigger("0 0 14 * 12 *", RunOnStartup = false)] TimerInfo myTimer)
         {
             try
             {
@@ -34,9 +34,9 @@ namespace AocSlackBot
                 }
 
                 var sortedMembers = leaderboard.Members
-                    .OrderByDescending(x => x.Value.Stars)
+                    .OrderByDescending(x => x.Value.LocalScore)
                     .Where(x => x.Value.Stars > 0)
-                    .Select((x, i) => new string[] { (i + 1).ToString(), x.Value.Name, x.Value.Stars.ToString() })
+                    .Select((x, i) => new string[] { (i + 1).ToString(), x.Value.Name, x.Value.Stars.ToString(), x.Value.LocalScore.ToString() })
                     .ToList();
 
                 if (!sortedMembers.Any())
@@ -59,7 +59,7 @@ namespace AocSlackBot
 
         private string GenerateLeaderboardTable(List<string[]> sortedMembers)
         {
-            var table = new ConsoleTable("", "User", "Stars");
+            var table = new ConsoleTable("", "User", "Stars", "Score");
             foreach (var member in sortedMembers)
             {
                 table.AddRow(member);

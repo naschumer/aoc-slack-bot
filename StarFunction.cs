@@ -31,8 +31,8 @@ namespace AocSlackBot
         public async Task Run([TimerTrigger("0 */15 * * 12 *", RunOnStartup = false)] TimerInfo myTimer)
         {
             try
-            {
-                var localFilePath = Path.Combine(Directory.GetCurrentDirectory(), _leaderboardJson);
+            { 
+                var localFilePath = Path.Combine(Path.GetTempPath(), _leaderboardJson);
 
                 var newLeaderboard = await _aocClient.GetLeaderboardAsync();
                 var oldLeaderboard = await _azureBlobClient.DownloadLeaderboardBlobAsync(localFilePath);
