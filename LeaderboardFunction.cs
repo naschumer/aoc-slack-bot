@@ -22,7 +22,7 @@ namespace AocSlackBot
         }
 
         [Function("LeaderboardFunction")]
-        public async Task RunAsync([TimerTrigger("0 0 14 * 12 *", RunOnStartup = false)] TimerInfo myTimer)
+        public async Task RunAsync([TimerTrigger("0 0 17 * 12 *", RunOnStartup = false)] TimerInfo myTimer)
         {
             try
             {
